@@ -3,12 +3,13 @@
 A collection of GitHub actions for Docker.
 
 ## Build and Push
+
 Build and push a docker image using a Dockerfile.
 
 ### Example
 
 ```yaml
-  - uses: aboutbits/github-actions-docker/build-push-docker@v1
+  - uses: aboutbits/github-actions-docker/build-push@v1
     with:
       username: ${{ github.actor }}
       password: ${{ secrets.GITHUB_TOKEN }}
