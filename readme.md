@@ -1,19 +1,24 @@
 # GitHub Actions Docker
 
-A collection of GitHub actions for Docker projects.
+A collection of GitHub actions for Docker.
 
-## Example Playbook
+## Build and Push
+Build and push a docker image using a Dockerfile.
+
+### Example
 
 ```yaml
-  - name: Build code
-    uses: aboutbits/github-actions-docker/xxx@v1
+  - uses: aboutbits/github-actions-docker/build-push-docker@v1
     with:
-      xxx-version: ${{ env.NODE_VERSION }}
+      username: ${{ github.actor }}
+      password: ${{ secrets.GITHUB_TOKEN }}
+      docker-image: ghcr.io/aboutbits/my-app
+      docker-tag: latest
 ```
 
 ## Versioning
 
-In order to have a verioning in place and working, create leightweight tags that point to the appropriate minor release versions.
+In order to have a versioning in place and working, create lightweight tags that point to the appropriate minor release versions.
 
 Creating a new minor release:
 
