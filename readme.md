@@ -21,18 +21,18 @@ Build and push a docker image using a Dockerfile.
 
 #### Inputs
 
-Following inputs can be used as `step.with` keys
+The following inputs can be used as `step.with` keys:
 
-| Name               | Required/Default | Description                                            |
-|--------------------|------------------|--------------------------------------------------------|
-| `context`          | `.`              | Build context directory                                |
-| `dockerfile`       | `Dockerfile`     | Path to the Dockerfile. (default {context}/Dockerfile) |
-| `registry`         | `ghcr.io`        | Docker registry                                        |
-| `username`         | required         | Registry username                                      |
-| `password`         | required         | Registry password                                      |
-| `docker-image`     | required         | Docker image name                                      |
-| `docker-tag`       | required         | Docker image tag                                       |
-                   
+| Name                  | Required/Default | Description                                                        |
+|-----------------------|------------------|--------------------------------------------------------------------|
+| `username`            | required         | Registry username                                                  |
+| `password`            | required         | Registry password                                                  |
+| `docker-image`        | required         | Docker image name                                                  |
+| `docker-tag`          | required         | Docker image tag                                                   |
+| `working-directory`   | `.`              | The working directory                                              |
+| `dockerfile`          | `Dockerfile`     | Path to the Dockerfile. (default {working-directory}/Dockerfile)   |
+| `registry`            | `ghcr.io`        | Docker registry                                                    |                   
+
 
 ## Versioning
 
