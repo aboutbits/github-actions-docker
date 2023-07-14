@@ -1,19 +1,42 @@
 # GitHub Actions Docker
 
-A collection of GitHub actions for Docker projects.
+A collection of Docker related GitHub actions.
 
-## Example Playbook
+## Actions
+
+### Build and Push
+
+Build and push a docker image using a Dockerfile.
+
+#### Example
 
 ```yaml
-  - name: Build code
-    uses: aboutbits/github-actions-docker/xxx@v1
+  - uses: aboutbits/github-actions-docker/build-push@v1
     with:
-      xxx-version: ${{ env.NODE_VERSION }}
+      username: ${{ github.actor }}
+      password: ${{ secrets.GITHUB_TOKEN }}
+      docker-image: ghcr.io/aboutbits/my-app
+      docker-tag: latest
 ```
+
+#### Inputs
+
+The following inputs can be used as `step.with` keys:
+
+| Name                  | Required/Default | Description                                                        |
+|-----------------------|------------------|--------------------------------------------------------------------|
+| `username`            | required         | Registry username                                                  |
+| `password`            | required         | Registry password                                                  |
+| `docker-image`        | required         | Docker image name                                                  |
+| `docker-tag`          | required         | Docker image tag                                                   |
+| `working-directory`   | `.`              | The working directory                                              |
+| `dockerfile`          | `Dockerfile`     | Path to the Dockerfile. (default {working-directory}/Dockerfile)   |
+| `registry`            | `ghcr.io`        | Docker registry                                                    |                   
+
 
 ## Versioning
 
-In order to have a verioning in place and working, create leightweight tags that point to the appropriate minor release versions.
+In order to have a versioning in place and working, create lightweight tags that point to the appropriate minor release versions.
 
 Creating a new minor release:
 
