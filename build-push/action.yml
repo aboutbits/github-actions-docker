@@ -1,14 +1,21 @@
 name: 'Build and push docker image'
 description: 'Build the docker image and push it to the registry.'
+
 inputs:
+  context:
+    default: .
+    description: "Build context directory"
+  dockerfile:
+    default: "Dockerfile"
+    description: "Path to the Dockerfile. (default {context}/Dockerfile)"
   registry:
-    default: 'ghcr.io'
+    default: "ghcr.io"
     description: "Docker registry"
   username:
-    description: 'Registry username'
+    description: "Registry username"
     required: true
   password:
-    description: 'Registry password'
+    description: "Registry password"
     required: true
   docker-image:
     description: "Docker image name"
@@ -33,7 +40,8 @@ runs:
     - name: Build and push container image
       uses: docker/build-push-action@v4
       with:
-        context: .
+        context: ${{ inputs.context }}
+        file: ${{ inputs.dockerfile }}
         push: true
         tags: |
           ${{ inputs.docker-image }}:${{ inputs.docker-tag }}
