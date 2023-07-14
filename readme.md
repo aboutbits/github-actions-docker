@@ -1,12 +1,14 @@
 # GitHub Actions Docker
 
-A collection of GitHub actions for Docker.
+A collection of Docker related GitHub actions.
 
-## Build and Push
+## Actions
+
+### Build and Push
 
 Build and push a docker image using a Dockerfile.
 
-### Example
+#### Example
 
 ```yaml
   - uses: aboutbits/github-actions-docker/build-push@v1
@@ -16,6 +18,21 @@ Build and push a docker image using a Dockerfile.
       docker-image: ghcr.io/aboutbits/my-app
       docker-tag: latest
 ```
+
+#### Inputs
+
+Following inputs can be used as `step.with` keys
+
+| Name               | Required/Default | Description                                            |
+|--------------------|------------------|--------------------------------------------------------|
+| `context`          | `.`              | Build context directory                                |
+| `dockerfile`       | `Dockerfile`     | Path to the Dockerfile. (default {context}/Dockerfile) |
+| `registry`         | `ghcr.io`        | Docker registry                                        |
+| `username`         | required         | Registry username                                      |
+| `password`         | required         | Registry password                                      |
+| `docker-image`     | required         | Docker image name                                      |
+| `docker-tag`       | required         | Docker image tag                                       |
+                   
 
 ## Versioning
 
