@@ -26,16 +26,17 @@ Build and push a docker image using a Dockerfile.
 
 The following inputs can be used as `step.with` keys:
 
-| Name                  | Required/Default | Description                                                        |
-|-----------------------|------------------|--------------------------------------------------------------------|
-| `registry`            | `ghcr.io`        | Docker registry                                                    |   
-| `username`            | required         | Registry username                                                  |
-| `password`            | required         | Registry password                                                  |
-| `docker-image`        | required         | Docker image name                                                  |
-| `docker-tag`          | required         | Docker image tag                                                   |
-| `working-directory`   | `.`              | The working directory                                              |
-| `dockerfile`          | `Dockerfile`     | Path to the Dockerfile. (default {working-directory}/Dockerfile)   |
-| `build-args`          | /                | List of build-time variables                                       |          
+| Name                | Required/Default | Description                                                                                                                                     |
+|---------------------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| `registry`          | `ghcr.io`        | Docker registry                                                                                                                                 |   
+| `username`          | required         | Registry username                                                                                                                               |
+| `password`          | required         | Registry password                                                                                                                               |
+| `docker-image`      | required         | Docker image name                                                                                                                               |
+| `docker-tag`        | required         | Docker image tag                                                                                                                                |
+| `working-directory` | `.`              | The working directory                                                                                                                           |
+| `dockerfile`        | `Dockerfile`     | Path to the Dockerfile. (default {working-directory}/Dockerfile)                                                                                |
+| `build-args`        | /                | List of build-time variables                                                                                                                    |          
+| `platforms`         | /                | Target platforms for the build (comma-separated or multi-line string) |          
 
 ## Build & Publish
 
