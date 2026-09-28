@@ -22,21 +22,52 @@ Build and push a docker image using a Dockerfile.
         ARG2=xyz
 ```
 
+Push several tags of the same image with `docker-tags`, and build without push (e.g. in a pull request) with
+`push: false`. With `load: true`, a later step can run the image, for example for a smoke test:
+
+```yaml
+  - uses: aboutbits/github-actions-docker/build-push@v1
+    with:
+      username: ${{ github.actor }}
+      password: ${{ secrets.GITHUB_TOKEN }}
+      docker-image: ghcr.io/aboutbits/my-app
+      docker-tags: |
+        1.2.3
+        1.2.3-${{ github.sha }}
+      platforms: linux/amd64,linux/arm64
+
+  - uses: aboutbits/github-actions-docker/build-push@v1
+    with:
+      docker-image: my-app
+      docker-tag: test
+      push: false
+      load: true
+```
+
 #### Inputs
 
 The following inputs can be used as `step.with` keys:
 
-| Name                | Required/Default | Description                                                           |
-|---------------------|------------------|-----------------------------------------------------------------------|
-| `registry`          | `ghcr.io`        | Docker registry                                                       |   
-| `username`          | required         | Registry username                                                     |
-| `password`          | required         | Registry password                                                     |
-| `docker-image`      | required         | Docker image name                                                     |
-| `docker-tag`        | required         | Docker image tag                                                      |
-| `working-directory` | `.`              | The working directory                                                 |
-| `dockerfile`        | `Dockerfile`     | Path to the Dockerfile. (default {working-directory}/Dockerfile)      |
-| `build-args`        | /                | List of build-time variables                                          |          
-| `platforms`         | /                | Target platforms for the build (comma-separated or multi-line string) |          
+| Name                | Required/Default | Description                                                                              |
+|---------------------|------------------|------------------------------------------------------------------------------------------|
+| `registry`          | `ghcr.io`        | Docker registry                                                                          |
+| `username`          | if `push`        | Registry username                                                                        |
+| `password`          | if `push`        | Registry password                                                                        |
+| `docker-image`      | required         | Docker image name                                                                        |
+| `docker-tag`        | /                | Docker image tag. Set either `docker-tag` or `docker-tags`.                              |
+| `docker-tags`       | /                | Docker image tags, one per line. Set either `docker-tag` or `docker-tags`.               |
+| `push`              | `true`           | Push the image to the registry. If `false`, the image is only built.                     |
+| `load`              | `false`          | Load the image into the local Docker daemon. Works only for a single platform.           |
+| `working-directory` | `.`              | The working directory                                                                    |
+| `dockerfile`        | `Dockerfile`     | Path to the Dockerfile. (default {working-directory}/Dockerfile)                         |
+| `build-args`        | /                | List of build-time variables                                                             |
+| `platforms`         | /                | Target platforms for the build (comma-separated or multi-line string)                    |
+
+#### Outputs
+
+| Name     | Description  |
+|----------|--------------|
+| `digest` | Image digest |
 
 ## Build & Publish
 
