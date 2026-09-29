@@ -25,9 +25,12 @@ inputs:
     required: false
 
 outputs:
-  image-id:
-    description: "Image ID"
+  imageid:
+    description: 'Image ID'
     value: ${{ steps.build.outputs.imageid }}
+  digest:
+    description: 'Image digest'
+    value: ${{ steps.build.outputs.digest }}
 
 runs:
   using: "composite"

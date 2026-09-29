@@ -31,8 +31,11 @@ inputs:
     required: false
 
 outputs:
+  imageid:
+    description: 'Image ID'
+    value: ${{ steps.build.outputs.imageid }}
   digest:
-    description: "Image digest"
+    description: 'Image digest'
     value: ${{ steps.build.outputs.digest }}
 
 runs:

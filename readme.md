@@ -40,9 +40,10 @@ The following inputs can be used as `step.with` keys:
 
 #### Outputs
 
-| Name     | Description  |
-|----------|--------------|
-| `digest` | Image digest |
+| Name      | Description  |
+|-----------|--------------|
+| `imageid` | Image ID     |
+| `digest`  | Image digest |
 
 ### Build
 
@@ -77,9 +78,10 @@ The following inputs can be used as `step.with` keys:
 
 #### Outputs
 
-| Name       | Description |
-|------------|-------------|
-| `image-id` | Image ID    |
+| Name      | Description  |
+|-----------|--------------|
+| `imageid` | Image ID     |
+| `digest`  | Image digest |
 
 ## Build & Publish
 
