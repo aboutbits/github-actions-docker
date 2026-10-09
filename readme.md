@@ -38,6 +38,51 @@ The following inputs can be used as `step.with` keys:
 | `build-args`        | /                | List of build-time variables                                          |          
 | `platforms`         | /                | Target platforms for the build (comma-separated or multi-line string) |          
 
+#### Outputs
+
+| Name      | Description  |
+|-----------|--------------|
+| `imageid` | Image ID     |
+| `digest`  | Image digest |
+
+### Build
+
+Build a docker image using a Dockerfile, without pushing it. With `load: true`, a later step can run the image, for
+example for a smoke test in a pull request.
+
+#### Example
+
+```yaml
+  - uses: aboutbits/github-actions-docker/build@v1
+    with:
+      docker-image: my-app
+      docker-tag: test
+      load: true
+
+  - run: docker run --rm my-app:test
+```
+
+#### Inputs
+
+The following inputs can be used as `step.with` keys:
+
+| Name                | Required/Default | Description                                                                    |
+|---------------------|------------------|--------------------------------------------------------------------------------|
+| `docker-image`      | required         | Docker image name                                                              |
+| `docker-tag`        | required         | Docker image tag                                                               |
+| `load`              | `false`          | Load the image into the local Docker daemon. Works only for a single platform. |
+| `working-directory` | `.`              | The working directory                                                          |
+| `dockerfile`        | `Dockerfile`     | Path to the Dockerfile. (default {working-directory}/Dockerfile)               |
+| `build-args`        | /                | List of build-time variables                                                   |
+| `platforms`         | /                | Target platforms for the build (comma-separated or multi-line string)          |
+
+#### Outputs
+
+| Name      | Description  |
+|-----------|--------------|
+| `imageid` | Image ID     |
+| `digest`  | Image digest |
+
 ## Build & Publish
 
 To build and publish the action, visit the GitHub Actions page of the repository and trigger the workflow "Release Package" manually.
