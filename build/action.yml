@@ -1,0 +1,56 @@
+name: 'Build docker image'
+description: 'Build the docker image without pushing it, e.g. to test it in a later step'
+
+inputs:
+  docker-image:
+    description: "Docker image name"
+    required: true
+  docker-tag:
+    description: "Docker image tag"
+    required: true
+  load:
+    description: "Load the image into the local Docker daemon, so that a later step can run it. Works only for a single platform."
+    default: "false"
+  working-directory:
+    description: 'The working directory'
+    default: '.'
+  dockerfile:
+    description: "Path to the Dockerfile. (default {working-directory}/Dockerfile)"
+    default: "Dockerfile"
+  build-args:
+    description: "List of build-time variables"
+    required: false
+  platforms:
+    description: "Target platforms for the build (comma-separated or multi-line string). Leave empty for default runner architecture."
+    required: false
+
+outputs:
+  imageid:
+    description: 'Image ID'
+    value: ${{ steps.build.outputs.imageid }}
+  digest:
+    description: 'Image digest'
+    value: ${{ steps.build.outputs.digest }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up QEMU for multi-arch builds
+      if: ${{ inputs.platforms != '' }}
+      uses: docker/setup-qemu-action@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v4
+
+    - name: Build container image
+      id: build
+      uses: docker/build-push-action@v7
+      with:
+        context: ${{ inputs.working-directory }}
+        file: ${{ inputs.dockerfile }}
+        push: false
+        load: ${{ inputs.load }}
+        tags: |
+          ${{ inputs.docker-image }}:${{ inputs.docker-tag }}
+        build-args: ${{ inputs.build-args }}
+        platforms: ${{ inputs.platforms }}

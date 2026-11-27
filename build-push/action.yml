@@ -30,6 +30,14 @@ inputs:
     description: "Target platforms for the build (comma-separated or multi-line string). Leave empty for default runner architecture."
     required: false
 
+outputs:
+  imageid:
+    description: 'Image ID'
+    value: ${{ steps.build.outputs.imageid }}
+  digest:
+    description: 'Image digest'
+    value: ${{ steps.build.outputs.digest }}
+
 runs:
   using: "composite"
   steps:
@@ -48,6 +56,7 @@ runs:
         password: ${{ inputs.password }}
 
     - name: Build and push container image
+      id: build
       uses: docker/build-push-action@v7
       with:
         context: ${{ inputs.working-directory }}
